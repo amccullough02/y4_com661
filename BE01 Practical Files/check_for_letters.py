@@ -15,15 +15,15 @@ three_letters = []
 for i in range(3):
     three_letters.append(input(f"Enter letter #{i+1}: "))
 
-filtered_words_list = []
+correct_content = []
 
 for word in all_words:
     if all(letter in word for letter in three_letters):
-        filtered_words_list.append(word)
+        correct_content.append(word)
 
 correct_order = []
 
-for word in filtered_words_list:
+for word in correct_content:
     index = 0
     for character in word:
         if character == three_letters[index]:
