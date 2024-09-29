@@ -1,20 +1,23 @@
 import random
 
+
 def replace_all(guess, word, letter):
     for pos in range(len(guess)):
         if word[pos] == letter:
             guess = guess[:pos] + letter + guess[pos+1:]
     return guess
 
+
 def get_words(number_of_letters):
-    words_found=[]
+    words_found = []
     fin = open("words.txt")
     for line in fin:
         word = line.strip()
         if len(word) == number_of_letters:
             words_found.append(word)
-    fin.close()		
+    fin.close()
     return words_found
+
 
 number_of_letters = int(input("Enter word length: "))
 words = get_words(number_of_letters)
