@@ -59,11 +59,16 @@ def create_business():
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["PUT"])
 def update_business(id):
-    businesses[id]["name"] = request.form["name"]
-    businesses[id]["town"] = request.form["town"]
-    businesses[id]["rating"] = request.form["rating"]
-
-    return make_response(jsonify({id: businesses[id]}), 200)
+    if id not in businesses:
+        return make_response(jsonify({"error": "Invalid business ID"}), 404)
+    else:
+        if "name" in request.form and "town" in request.form and "rating" in request.form:
+            businesses[id]["name"] = request.form["name"]
+            businesses[id]["town"] = request.form["town"]
+            businesses[id]["rating"] = request.form["rating"]
+            return make_response(jsonify({id: businesses[id]}), 200)
+        else:
+            return make_response(jsonify({"error": "Missing form data"}), 404)
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["DELETE"])
