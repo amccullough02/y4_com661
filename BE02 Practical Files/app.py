@@ -73,8 +73,11 @@ def update_business(id):
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["DELETE"])
 def delete_business(id):
-    del businesses[id]
-    return make_response(jsonify({}, 204))
+    if id in businesses:
+        del businesses[id]
+        return make_response(jsonify({}, 204))
+    else:
+        return make_response(jsonify({"error": "Invalid business ID"}), 404)
 
 # COMMENTS
 
