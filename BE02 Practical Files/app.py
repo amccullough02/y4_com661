@@ -7,7 +7,7 @@ app = Flask(__name__)
 businesses = {}
 
 
-def generate_dummy_data():
+def seed_db():
     business_dict = {}
     towns = ['Coleraine', 'Banbridge', 'Belfast', 'Lisburn', 'Ballymena',
              'Derry', 'Newry', 'Enniskillen', 'Omagh', 'Ballymoney']
@@ -36,7 +36,10 @@ def read_all_businesses():
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["GET"])
 def read_business_by_id(id):
-    return make_response(jsonify(businesses[id]), 200)
+    if id in businesses:
+        return make_response(jsonify(businesses[id]), 200)
+    else:
+        return make_response(jsonify({"error": "Invalid Business ID"}), 404)
 
 
 @app.route("/api/v1.0/businesses", methods=["POST"])
@@ -128,5 +131,5 @@ def delete_business(id):
 
 
 if __name__ == "__main__":
-    businesses = generate_dummy_data()
+    businesses = seed_db()
     app.run(debug=True)
