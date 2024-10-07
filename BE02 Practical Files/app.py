@@ -31,7 +31,15 @@ def seed_db():
 
 @app.route("/api/v1.0/businesses", methods=["GET"])
 def read_all_businesses():
-    return make_response(jsonify(businesses), 200)
+    page_num, page_size = 1, 10  # If no query params provided, we use this.
+    if request.args.get('pn'):
+        page_num = int(request.args.get('pn'))
+    if request.args.get('ps'):
+        page_size = int(request.args.get('ps'))
+    page_start = (page_size * (page_num - 1))
+    businesses_list = [{k: v} for k, v in businesses.items()]
+    data_to_return = businesses_list[page_start:page_start + page_size]
+    return make_response(jsonify(data_to_return), 200)
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["GET"])
