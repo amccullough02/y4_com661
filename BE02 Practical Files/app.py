@@ -44,14 +44,17 @@ def read_business_by_id(id):
 
 @app.route("/api/v1.0/businesses", methods=["POST"])
 def create_business():
-    next_id = str(uuid.uuid1())
-    new_business = {"name": request.form["name"],
-                    "town": request.form["town"],
-                    "rating": request.form["rating"],
-                    "reviews": []
-                    }
-    businesses[next_id] = new_business
-    return make_response(jsonify({next_id: new_business}), 201)
+    if "name" in request.form and "town" in request.form and "rating" in request.form:
+        next_id = str(uuid.uuid1())
+        new_business = {"name": request.form["name"],
+                        "town": request.form["town"],
+                        "rating": request.form["rating"],
+                        "reviews": []
+                        }
+        businesses[next_id] = new_business
+        return make_response(jsonify({next_id: new_business}), 201)
+    else:
+        return make_response(jsonify({"error": "Missing form data"}), 404)
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["PUT"])
