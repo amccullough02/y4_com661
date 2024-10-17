@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify, make_response
 from pymongo import MongoClient
 from bson import ObjectId
+import jwt
+import datetime
+from functools import wraps
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'mysecret'
 client = MongoClient("mongodb://127.0.0.1/27017")
 db = client.bizDB
 businesses = db.biz
@@ -147,6 +151,25 @@ def delete_review(bid, rid):
     businesses.update_one({"_id": ObjectId(bid)}, {
                           "$pull": {"reviews": {"_id": ObjectId(rid)}}})
     return make_response(jsonify({}), 204)
+
+
+# AUTHENTICATION
+
+
+@app.route('/api/v1.0/login', methods=['GET'])
+def login():
+    auth = request.authorization
+    if auth and auth.password == 'password':
+        token = jwt.encode({
+            'user': auth.username,
+            'exp': datetime.datetime.now(datetime.UTC) +
+            datetime.timedelta(minutes=30)},
+            app.config['SECRET_KEY'],
+            algorithm="HS256")
+        return make_response(jsonify({'token': token}), 200)
+    return make_response('Could not verify', 401, {
+        'WWW-Authenticate': 'Basic realm = "Login Required"'
+    })
 
 
 if __name__ == "__main__":
