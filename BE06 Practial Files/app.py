@@ -13,6 +13,27 @@ db = client.bizDB
 businesses = db.biz
 
 
+def jwt_required(func):
+    @wraps(func)
+    def jwt_required_wrapper(*args, **kwargs):
+        token = None
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+        if not token:
+            make_response(jsonify({
+                'message': 'Token is missing'
+            }), 401)
+        try:
+            data = jwt.decode(
+                token, app.config['SECRET_KEY'], algorithms="HS256")
+        except:
+            return make_response(jsonify({
+                'message': 'Token is invalid'
+            }), 401)
+        return func(*args, **kwargs)
+    return jwt_required_wrapper
+
+
 # BUSINESSES
 
 
@@ -38,6 +59,7 @@ def show_all_businesses():
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["GET"])
+@jwt_required
 def show_one_business(id):
     business = businesses.find_one({'_id': ObjectId(id)})
     if business is not None:
@@ -50,6 +72,7 @@ def show_one_business(id):
 
 
 @app.route("/api/v1.0/businesses", methods=["POST"])
+@jwt_required
 def add_business():
     if "name" in request.form and "town" in request.form and "rating" in request.form:
         new_business = {
@@ -67,6 +90,7 @@ def add_business():
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["PUT"])
+@jwt_required
 def edit_business(id):
     if "name" in request.form and "town" in request.form and "rating" in request.form:
         result = businesses.update_one(
@@ -84,6 +108,7 @@ def edit_business(id):
 
 
 @app.route("/api/v1.0/businesses/<string:id>", methods=["DELETE"])
+@jwt_required
 def delete_business(id):
     result = businesses.delete_one({"_id": ObjectId(id)})
     if result.deleted_count == 1:
@@ -95,6 +120,7 @@ def delete_business(id):
 
 
 @app.route("/api/v1.0/businesses/<string:id>/reviews", methods=["POST"])
+@jwt_required
 def add_new_review(id):
     new_review = {
         "_id": ObjectId(),
@@ -134,6 +160,7 @@ def fetch_one_review(bid, rid):
 
 
 @app.route("/api/v1.0/businesses/<bid>/reviews/<rid>", methods=["PUT"])
+@jwt_required
 def edit_review(bid, rid):
     edited_review = {
         "reviews.$.username": request.form["username"],
@@ -147,6 +174,7 @@ def edit_review(bid, rid):
 
 
 @app.route("/api/v1.0/businesses/<bid>/reviews/<rid>", methods=["DELETE"])
+@jwt_required
 def delete_review(bid, rid):
     businesses.update_one({"_id": ObjectId(bid)}, {
                           "$pull": {"reviews": {"_id": ObjectId(rid)}}})
