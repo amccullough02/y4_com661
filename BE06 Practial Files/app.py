@@ -213,7 +213,7 @@ def login():
             if bcrypt.checkpw(bytes(auth.password, 'UTF-8'), user["password"]):
                 token = jwt.encode({
                     'user': auth.username,
-                    'admin': user['admin']
+                    'admin': user['admin'],
                     'exp': datetime.datetime.now(datetime.UTC) +
                     datetime.timedelta(minutes=30)},
                     app.config['SECRET_KEY'],
