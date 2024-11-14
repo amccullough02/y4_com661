@@ -32,7 +32,7 @@ export class DataService {
   }
 
   getLoremIpsum(paragraphs: number): Observable<any> {
-    let API_key = '6EMn+PBqmAduX1JbGS376A==7RbIGOmtwEne4jgF';
+    let API_key = '';
     return this.http.get<any>(
       'https://api.api-ninjas.com/v1/' + 'loremipsum?paragraphs=' + paragraphs,
       { headers: { 'X-Api-Key': API_key } }
@@ -40,7 +40,7 @@ export class DataService {
   }
 
   getCurrentWeather(lat: number, lon: number) {
-    let API_key = '46958caf9d9e05bf86f3d63983a06b49';
+    let API_key = '';
     return this.http.get<any>(
       'https://api.openweathermap.org/data/2.5/' +
         'weather?lat=' +
