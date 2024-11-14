@@ -3,120 +3,160 @@
     "_id": "65520f1a4c3278b891234a01",
     "name": "Pizza Mountain",
     "town": "Coleraine",
-    "rating": 5
+    "rating": 5,
+    "latitude": 55.1265,
+    "longitude": -6.6746
   },
   {
     "_id": "65520f1a4c3278b891234a02",
     "name": "Chilli Champions",
     "town": "Portadown",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.3495,
+    "longitude": -6.4665
   },
   {
     "_id": "65520f1a4c3278b891234a03",
     "name": "Sausage Supreme",
     "town": "Derry",
-    "rating": 3
+    "rating": 3,
+    "latitude": 54.9953,
+    "longitude": -7.3186
   },
   {
     "_id": "65520f1a4c3278b891234a04",
     "name": "Burger Haven",
     "town": "Belfast",
-    "rating": 5
+    "rating": 5, 
+    "latitude": 54.5973,
+    "longitude": -5.9301
   },
   {
     "_id": "65520f1a4c3278b891234a05",
     "name": "Taco Town",
     "town": "Lisburn",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.5131,
+    "longitude": -6.0367
   },
   {
     "_id": "65520f1a4c3278b891234a06",
     "name": "Fishy Delights",
     "town": "Newry",
-    "rating": 3
+    "rating": 3,
+    "latitude": 54.1779,
+    "longitude": -6.3414
   },
   {
     "_id": "65520f1a4c3278b891234a07",
     "name": "Pasta Palace",
     "town": "Armagh",
-    "rating": 5
+    "rating": 5,
+    "latitude": 54.3484,
+    "longitude": -6.6552
   },
   {
     "_id": "65520f1a4c3278b891234a08",
     "name": "Wrap Wizards",
     "town": "Bangor",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.6651,
+    "longitude": -5.6695
   },
   {
     "_id": "65520f1a4c3278b891234a09",
     "name": "BBQ Bonanza",
     "town": "Omagh",
-    "rating": 3
+    "rating": 3,
+    "latitude": 54.5989,
+    "longitude": -7.3038
   },
   {
     "_id": "65520f1a4c3278b891234a0a",
     "name": "Salad Central",
     "town": "Antrim",
-    "rating": 5
+    "rating": 5,
+    "latitude": 54.7145,
+    "longitude": -6.2086
   },
   {
     "_id": "65520f1a4c3278b891234a0b",
     "name": "Sandwich Stop",
     "town": "Strabane",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.8182,
+    "longitude": -7.4841
   },
   {
     "_id": "65520f1a4c3278b891234a0c",
     "name": "Smoothie Spot",
     "town": "Limavady",
-    "rating": 3
+    "rating": 3,
+    "latitude": 55.0376,
+    "longitude": -6.9496
   },
   {
     "_id": "65520f1a4c3278b891234a0d",
     "name": "Veggie Village",
     "town": "Cookstown",
-    "rating": 5
+    "rating": 5,
+    "latitude": 54.6463,
+    "longitude": -6.7569
   },
   {
     "_id": "65520f1a4c3278b891234a0e",
     "name": "Noodle Nest",
     "town": "Magherafelt",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.7734,
+    "longitude": -6.6347
   },
   {
     "_id": "65520f1a4c3278b891234a0f",
     "name": "Pancake Paradise",
     "town": "Ballymena",
-    "rating": 3
+    "rating": 3,
+    "latitude": 54.8656,
+    "longitude": -6.2692
   },
   {
     "_id": "65520f1a4c3278b891234a10",
     "name": "Grill Guru",
     "town": "Lurgan",
-    "rating": 5
+    "rating": 5,
+    "latitude": 54.4396,
+    "longitude": -6.3121
   },
   {
     "_id": "65520f1a4c3278b891234a11",
     "name": "Burrito Barn",
     "town": "Dungannon",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.5022,
+    "longitude": -6.7763
   },
   {
     "_id": "65520f1a4c3278b891234a12",
     "name": "Curry Cove",
     "town": "Enniskillen",
-    "rating": 3
+    "rating": 3,
+    "latitude": 54.3465,
+    "longitude": -7.6346
   },
   {
     "_id": "65520f1a4c3278b891234a13",
     "name": "Soup Shack",
     "town": "Holywood",
-    "rating": 5
+    "rating": 5,
+    "latitude": 54.6232,
+    "longitude": -5.8336
   },
   {
     "_id": "65520f1a4c3278b891234a14",
     "name": "Hotdog Haven",
     "town": "Ballyclare",
-    "rating": 4
+    "rating": 4,
+    "latitude": 54.7182,
+    "longitude": -6.0474
   }
 ]

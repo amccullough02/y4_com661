@@ -1,18 +1,59 @@
 <div class="container" style="margin-top: 70px">
+  @for ( business of business_list; track business.name ) {
   <div class="row">
     <div class="col-sm-12">
-      @for(business of business_list; track business.name) {
-      <div class="card text-white bg-primary mb-3">
-        <div class="card-header">
-          {{ business.name }}
-        </div>
-        <div class="card-body">
-          This business is based in
-          {{ business.town }}
-        </div>
-        <div class="card-footer">Rating: {{ business.rating }}</div>
-      </div>
-      }
+      <div class="display-1">{{ business.name }} of {{ business.town }}</div>
+      <span *ngFor="let star of [].constructor(business.rating)">
+        <img src="images/star.png" style="width: 30px; height: 30px" />
+      </span>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Description</h1>
+      {{ loremIpsum }}
+      <div>
+        <h1>Weather</h1>
+        <p align="left">
+          <svg height="100" width="100">
+            <g>
+              <circle
+                [style.fill]="temperatureColour"
+                cx="50"
+                cy="50"
+                r="40"
+              ></circle>
+              <text
+                x="50%"
+                y="50%"
+                font-size="1.3em"
+                text-anchor="middle"
+                stroke="#000"
+                stroke-width="1px"
+                dy=".3em"
+              >
+                {{ temperature }}
+                <tspan dy="-10">o</tspan>
+                <tspan dy="10">C</tspan>
+              </text>
+            </g>
+          </svg>
+          <img src="{{ weatherIconURL }}" /><br />
+          Current weather: {{ weather }}
+        </p>
+      </div>
+    </div>
+    <div class="col sm-6 text-center">
+      <google-map height="400px" width="400px" [options]="map_options">
+        @for (location of map_locations; track location) {
+        <map-advanced-marker
+          #markerElem="mapAdvancedMarker"
+          [position]="{ lat: location.lat, lng: location.lng }"
+        >
+        </map-advanced-marker>
+        }
+      </google-map>
+    </div>
+  </div>
+  }
 </div>
