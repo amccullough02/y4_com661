@@ -55,5 +55,79 @@
       </google-map>
     </div>
   </div>
+  <div class="row" style="margin-top: 70px">
+    <div class="col-sm-12">
+      @for ( review of business.reviews; track review ) {
+      <div class="card bg-light mb-3">
+        <div class="card-header">
+          {{ review.username }}
+        </div>
+        <div class="card-body">
+          {{ review.comment }}
+        </div>
+        <div class="card-footer">Rating: {{ review.stars }}</div>
+      </div>
+      }
+    </div>
+  </div>
   }
+</div>
+<div class="container" style="margin-top: 50px">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Please review this business</h2>
+      <form
+        [formGroup]="reviewForm"
+        (ngSubmit)="onSubmit()"
+        ngClass="{'error': reviewForm.controls.username.invalid && reviewForm.controls.username.touched}"
+      >
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"
+            formControlName="username"
+            [ngClass]="{ error: isInvalid('username') }"
+          />
+        </div>
+        <div class="form-group">
+          <label for="comment"> Please leave your review below</label>
+          <textarea
+            name="comment"
+            id="comment"
+            class="form-control"
+            formControlName="comment"
+            ngClass="{'error': reviewForm.controls.username.invalid && reviewForm.controls.username.touched}"
+            [ngClass]="{ error: isInvalid('comment') }"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="stars"> Please provide a rating (5 = best) </label>
+          <select
+            name="stars"
+            id="stars"
+            class="form-control"
+            formControlName="stars"
+          >
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+        </div>
+        <span *ngIf="isIncomplete()"> You must complete all fields </span>
+        <button
+          *ngIf="!isIncomplete()"
+          class="btn btn-primary"
+          type="submit"
+          style="margin-top: 20px"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

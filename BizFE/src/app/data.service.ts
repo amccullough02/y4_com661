@@ -59,4 +59,49 @@ export class DataService {
     else if (temp <= 25) return '#ff7f00';
     else return '#ff0000';
   }
+
+  populateReviews() {
+    let loremIpsum = <String>'';
+    let dummyReview = <any>{};
+
+    this.getLoremIpsum(1).subscribe((response: any) => {
+      loremIpsum = response.text;
+      jsonData.forEach(function (business) {
+        let numReviews = Math.floor(Math.random() * 10);
+        if (Array.isArray(business['reviews'])) {
+          for (var i = 0; i < numReviews; i++) {
+            let textSize = Math.floor(Math.random() * 290 + 10);
+            let textStart = Math.floor(
+              Math.random() * (loremIpsum.length - textSize)
+            );
+            dummyReview = {
+              username: 'User ' + Math.floor(Math.random() * 9999 + 1),
+              comment: loremIpsum.slice(textStart, textStart + textSize),
+              stars: Math.floor(Math.random() * 5) + 1,
+            };
+          }
+          business['reviews'].push(dummyReview);
+        } else {
+          console.error('Reviews column is not defined.');
+        }
+      });
+    });
+  }
+
+  postReview(id: any, review: any) {
+    let newReview = {
+      username: review.username,
+      comment: review.comment,
+      stars: review.stars,
+    };
+    jsonData.forEach(function (business) {
+      if (Array.isArray(business['reviews'])) {
+        if (business['_id'] == id) {
+          business['reviews'].push(newReview);
+        }
+      } else {
+        console.log('Reviews column is not defined.');
+      }
+    });
+  }
 }

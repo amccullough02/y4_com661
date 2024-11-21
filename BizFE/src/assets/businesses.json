@@ -5,7 +5,14 @@
     "town": "Coleraine",
     "rating": 5,
     "latitude": 55.1265,
-    "longitude": -6.6746
+    "longitude": -6.6746,
+    "reviews": [
+      {
+        "username": "Alex McCullough",
+        "comment": "this is a comment",
+        "stars": 3
+      }
+    ]
   },
   {
     "_id": "65520f1a4c3278b891234a02",
@@ -27,7 +34,7 @@
     "_id": "65520f1a4c3278b891234a04",
     "name": "Burger Haven",
     "town": "Belfast",
-    "rating": 5, 
+    "rating": 5,
     "latitude": 54.5973,
     "longitude": -5.9301
   },

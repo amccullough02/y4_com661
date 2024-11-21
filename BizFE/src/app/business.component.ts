@@ -3,11 +3,13 @@ import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'business',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, GoogleMapsModule],
+  imports: [RouterOutlet, CommonModule, GoogleMapsModule, ReactiveFormsModule],
   providers: [DataService],
   templateUrl: './business.component.html',
   styleUrl: './business.component.css',
@@ -24,13 +26,19 @@ export class BusinessComponent {
   weather: any;
   weatherIcon: any;
   weatherIconURL: any;
+  reviewForm: any;
 
-  constructor(public dataService: DataService, private route: ActivatedRoute) {}
+  constructor(
+    public dataService: DataService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.business_list = this.dataService.getBusiness(
       this.route.snapshot.paramMap.get('id')
     );
+    console.log(this.business_list[0]['reivews']);
     this.business_lat = this.business_list[0].latitude;
     this.business_lng = this.business_list[0].longitude;
     this.map_options = {
@@ -56,5 +64,39 @@ export class BusinessComponent {
           this.temperature
         );
       });
+    this.reviewForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      comment: ['', Validators.required],
+      stars: 5,
+    });
+  }
+  onSubmit() {
+    console.log(this.reviewForm.value);
+    this.dataService.postReview(
+      this.route.snapshot.paramMap.get('id'),
+      this.reviewForm.value
+    );
+    this.reviewForm.reset();
+  }
+
+  isInvalid(control: any) {
+    return (
+      this.reviewForm.controls[control].invalid &&
+      this.reviewForm.controls[control].touched
+    );
+  }
+
+  isUntouched() {
+    return (
+      this.reviewForm.controls.username.pristine ||
+      this.reviewForm.controls.comment.pristine
+    );
+  }
+  isIncomplete() {
+    return (
+      this.isInvalid('username') ||
+      this.isInvalid('comment') ||
+      this.isUntouched()
+    );
   }
 }
